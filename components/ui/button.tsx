@@ -31,6 +31,7 @@ export interface ButtonProps
         className
         )}
         ref={ref}
+        {...props}
         >
        {children}
         </button>
