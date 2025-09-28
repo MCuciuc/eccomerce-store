@@ -38,46 +38,56 @@ const CategoryPage: React.FC<CategoryPageProps> = async ({
     const category = await getCategory(resolvedParams.categoryid)
 
     return (
-        <div className="bg-white">
-            <Container>
-                {category && (
+        <div className="min-h-screen">
+            {category && (
+                <div className="animate-fade-in">
                     <Billboard
                         data={category.billboard as any}
                     />
-                )}
-                <div className="px-4 sm:px-6 lg:px-8 pb-24">
-                    <div className="lg:grid lg:grid-cols-5 lg:gap-x-8">
-                        <MobileFilters 
+                </div>
+            )}
+            <div className="pb-24">
+                <div className="lg:grid lg:grid-cols-4 lg:gap-x-8">
+                    <MobileFilters 
                         sizes={sizes}
                         colors={colors}
-                        />
-                        <div className="hidden lg:block">
+                    />
+                    <div className="hidden lg:block space-y-6">
+                        <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                            <h3 className="text-lg font-semibold text-gray-900 mb-4">Filters</h3>
                             <Filter 
-                            valueKey="sizeId"
-                            name="Sizes"
-                             data={sizes}
+                                valueKey="sizeId"
+                                name="Sizes"
+                                data={sizes}
                             />
-                             <Filter 
-                            valueKey="colorId"
-                            name="Colors"
-                             data={colors}
+                            <Filter 
+                                valueKey="colorId"
+                                name="Colors"
+                                data={colors}
                             />
                         </div>
-                        <div className="mt-6 lg:col-span-4 lg:mt-0">
-                            {products.length === 0 && <NoResults />}
-                            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                              {products.map((item) => (
-                                <ProductCard 
-                                key={item.id}
-                                data={item}
-                                />
-                              ))}
-                            </div>
-
+                    </div>
+                    <div className="mt-6 lg:col-span-3 lg:mt-0">
+                        <div className="mb-6">
+                            <h1 className="text-2xl font-bold text-gray-900 mb-2">
+                                {category?.name}
+                            </h1>
+                            <p className="text-gray-600">
+                                {products.length} product{products.length !== 1 ? 's' : ''} found
+                            </p>
+                        </div>
+                        {products.length === 0 && <NoResults />}
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                          {products.map((item) => (
+                            <ProductCard 
+                            key={item.id}
+                            data={item}
+                            />
+                          ))}
                         </div>
                     </div>
                 </div>
-            </Container>
+            </div>
         </div>
     )
 }

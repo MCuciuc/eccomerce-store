@@ -40,40 +40,45 @@ const ProductCard: React.FC<ProductCard> = ({
         cart.addItem(data)
     }
     return (
-        <div onClick={handleClick} className="bg-white group cursor-pointer rounded-xl border p-3 space-y-4">
-           <div className="aspect-square rounded-xl bg-gray-100 relative">
+        <div onClick={handleClick} className="group cursor-pointer bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+           <div className="aspect-square relative overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100">
             <Image
-            src={data?.images?.[0]?.url}
-            fill
-            alt="Image"
-            className="aspect-square object-cover rounded-md"
-             
-             />
-             <div className="opacity-0 group-hover:opacity-100 transition absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
-                <div className="flex gap-x-6 justify-center">
+                src={data?.images?.[0]?.url}
+                fill
+                alt={data.name}
+                className="object-cover transition-transform duration-500 group-hover:scale-110"
+            />
+            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-300" />
+            <div className="opacity-0 group-hover:opacity-100 transition-all duration-300 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
+                <div className="flex gap-x-3 justify-center">
                     <IconButton
-                    onClick={onPreview}
-                    icon={<Expand size ={20} className="text-gray-600" />}
+                        onClick={onPreview}
+                        className="bg-white/90 backdrop-blur-sm hover:bg-white shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-110"
+                        icon={<Expand size={18} className="text-gray-700" />}
                     />
-                     <IconButton
-                    onClick={onAddToCart}
-                    icon={<ShoppingCart size ={20} className="text-gray-600" />}
+                    <IconButton
+                        onClick={onAddToCart}
+                        className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-110"
+                        icon={<ShoppingCart size={18} className="text-white" />}
                     />
-
                 </div>
-             </div>
+            </div>
            </div>
-           <div>
-            <p className="font-semibold text-lg">
-                {data.name}
-            </p>
-            <p className="text-sm text-gray-500">
-              {data.category.name}  
-            </p>
-           </div>
-           <div className="flex items-center justify-between">
-            <Currency value={data?.price} />
-
+           <div className="p-5 space-y-3">
+            <div>
+                <h3 className="font-semibold text-lg text-gray-900 group-hover:text-blue-600 transition-colors duration-200 line-clamp-2">
+                    {data.name}
+                </h3>
+                <p className="text-sm text-gray-500 mt-1">
+                    {data.category.name}  
+                </p>
+            </div>
+            <div className="flex items-center justify-between">
+                <Currency value={data?.price} />
+                <div className="text-xs text-gray-400 bg-gray-100 px-2 py-1 rounded-full">
+                    Featured
+                </div>
+            </div>
            </div>
         </div>
     )
